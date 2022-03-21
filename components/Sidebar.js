@@ -1,5 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
+import { getSession } from 'next-auth/react'
 import {
   BellIcon,
   BookmarkIcon,
@@ -17,7 +18,7 @@ function Sidebar() {
       <div className="hoverAnimation flex h-14 w-14 items-center justify-center p-0 xl:ml-24 ">
         <Image src="https://rb.gy/ogau5a" width={30} height={30} />
       </div>
-      <div className="mb2.5 mt-4 space-y-2.5 xl:ml-24 ">
+      <div className="mb-2.5 mt-4 space-y-1.5 xl:ml-24 ">
         <SidebarLink text="Home" Icon={HomeIcon} active />
         <SidebarLink text="Explore" Icon={HashtagIcon} />
         <SidebarLink text="Notifications" Icon={BellIcon} />
@@ -26,7 +27,7 @@ function Sidebar() {
         <SidebarLink text="Lists" Icon={ClipboardListIcon} />
         <SidebarLink text="Profile" Icon={UserIcon} />
         <SidebarLink text="More" Icon={DotsCircleHorizontalIcon} />
-        <button className="ml-auto hidden h-[52px] w-56 rounded-full bg-[#1d9bf0] text-lg text-white shadow-md transition duration-200 hover:bg-[#1a8cd8] xl:inline">
+        <button className="ml-auto mb-6 hidden h-[52px] w-56 rounded-full bg-[#1d9bf0] text-lg text-white shadow-md transition duration-200 hover:bg-[#1a8cd8] xl:inline">
           Tweet
         </button>
       </div>
