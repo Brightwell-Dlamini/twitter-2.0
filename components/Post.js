@@ -1,3 +1,7 @@
+import {
+  DotsCircleHorizontalIcon,
+  DotsHorizontalIcon,
+} from '@heroicons/react/outline'
 import { useAmp } from 'next/amp'
 import React from 'react'
 import Moment from 'react-moment'
@@ -46,8 +50,25 @@ function Post({ id, post, postPage }) {
               </p>
             )}
           </div>
-          <div></div>
+          <div className="icon group ml-auto flex-shrink-0">
+            <DotsHorizontalIcon className="h-7 text-[#6e767d] group-hover:text-[#1d9bf0]" />
+          </div>
         </div>
+        {postPage && (
+          <p className="mt-0.5 text-[15px] text-[#d9d9d9] sm:text-base">
+            {post?.text}
+          </p>
+        )}
+        <img
+          src={post?.image}
+          alt=""
+          className="mr-2 max-h-[700px] rounded-2xl object-cover"
+        />
+        <div
+          className={`flex w-10/12 justify-between text-[#6e767d] ${
+            postPage && 'mx-auto'
+          }`}
+        ></div>
       </div>
     </div>
   )
