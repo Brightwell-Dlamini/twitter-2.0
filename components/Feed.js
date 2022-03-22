@@ -1,9 +1,26 @@
 import { SparklesIcon } from '@heroicons/react/outline'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from './Input'
-import { getSession } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore'
+import { db } from '../firebase'
+import Post from './Post'
 
 function Feed() {
+  const [posts, setPosts] = useState([])
+  {
+    useEffect(
+      () =>
+        onSnapshot(
+          query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
+          (snapshot) => {
+            setPosts(snapshot.docs)
+          }
+        ),
+      [db]
+    )
+  }
+
   return (
     <div className="max-w-2xl flex-grow border-l border-r border-gray-700 text-white sm:ml-[73px] xl:ml-[370px] ">
       <div className="sticky top-0 z-50 flex items-center border-b border-gray-700 bg-black bg-opacity-25 py-2 px-3 text-[#d9d9d9] sm:justify-between">
@@ -13,6 +30,11 @@ function Feed() {
         </div>
       </div>
       <Input />
+      <div className="pb-72">
+        {posts.map((post) => (
+          <Post key={post.id} id={post.id} post={post.data()} />
+        ))}
+      </div>
     </div>
   )
 }

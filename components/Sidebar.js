@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { getSession } from 'next-auth/react'
+import { getSession, useSession, signOut } from 'next-auth/react'
 import {
   BellIcon,
   BookmarkIcon,
@@ -13,6 +13,8 @@ import {
 import { DotsHorizontalIcon, HomeIcon } from '@heroicons/react/solid'
 import SidebarLink from '../components/SidebarLink'
 function Sidebar() {
+  const { data: session } = useSession()
+
   return (
     <div className="fixed hidden h-full items-center p-2 sm:flex sm:flex-col xl:w-[340px] xl:items-start ">
       <div className="hoverAnimation flex h-14 w-14 items-center justify-center p-0 xl:ml-24 ">
@@ -31,16 +33,18 @@ function Sidebar() {
           Tweet
         </button>
       </div>
-
       <div className="hoverAnimation mt-auto flex items-center justify-center text-white xl:ml-auto xl:-mr-5">
         <img
-          src="https://lh3.googleusercontent.com/fPnweq5qC4GtQ741QtkTFiotnlgN7vjaJ8uKHfkspJOMP7Dos_n5GYReUBkqx-6TPNxoBID6yJG9kZlm6osI5E53CeDZX2JTEyBOpeNk-AAGVcikvBGbXI-irFlDnLyqZGQMDHv1d0nHg8vI0Kl_YDWrDw5gQ-HSdBGIMZw9Q-m6qsQ23pk6nzbdX3gOj71oFR47_OC3BT1XLg9FGsvlpqIUjd-kKwOg6zPHuj8Po522krnpi9WeKWzVrf98_4t0NnwrCE3FVt-OcmmL7Z1jmF3Df_p7y-BaA6cHxOeWcWKV-0Joll8O3gal2mtudAfrEIj11Na80a8D-7O8J85LMSN58215CGUbGi9DbWNscmYooPgFqfxRGYseOL3rierhrbKJVYjBde21r2f-kxnW2qO2odFkG4NfJLnCu4kVEfE7Tv1HouZi1ZiE7I7gti0Vxq4t9Inte4ROONfiXdvtyYkoX8uFR7h2OGHbtnkyAoTV-2ttPNJLY9v52HKMVkQ9WwDRwZJHgRPkz5FtBPSVCSGh2t15bEeDoE5I6Lzfd2Ey9dnAgNgVhHfX9xC3-MWXe50G8uqj0D-hSVv9_z1z8kc1ipNpeZjbTNpdxp9YzgIhbYQzEECWonn7OBA4iK_Qpg062BhInrrWQISJKNmvWLVqiOj2g7dK9beVbldVfCWxh-2SOUsBe2XAsAdbZI4YjjNyhe9wuAy8ZrcaR3X322c=s640-no?authuser=0"
+          src={session.user.image}
           alt="userImage"
           className="h-10 w-10 rounded-full xl:mr-2.5"
         />
-        <div className="hidden leading-5 text-white xl:inline">
-          <h4 className="font-bold">Neliswa Mabuza</h4>
-          <p className="text-white">@teziemabuza</p>
+        <div
+          className="hidden leading-5 text-white xl:inline"
+          onClick={signOut}
+        >
+          <h4 className="font-bold">{session.user.name}</h4>
+          <p className="text-white">@{session.user.tag}</p>
         </div>
         <DotsHorizontalIcon className="ml-10 hidden h-5 xl:inline" />
       </div>

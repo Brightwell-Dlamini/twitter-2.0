@@ -19,6 +19,7 @@ function Home({ trendingResults, followResults, providers }) {
         <Sidebar />
 
         <Feed />
+
         {/* Widgets */}
 
         {/* Modal */}
@@ -34,14 +35,14 @@ export async function getServerSideProps(context) {
   const followResults = await fetch('https://jsonkeeper.com/b/WWMJ').then(
     (res) => res.json()
   )
-  const providers = await getProviders(context)
-  const session = await getSession()
+  const providers = await getProviders()
+  const session = await getSession(context)
   return {
     props: {
       trendingResults,
       followResults,
       providers,
-      //session,
+      session,
     },
   }
 }

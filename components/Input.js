@@ -20,8 +20,10 @@ import {
 } from 'firebase/firestore'
 import { db, storage } from '../firebase'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
+import { useSession } from 'next-auth/react'
 
 function Input() {
+  const { data: session } = useSession()
   const [input, setInput] = useState('')
   const [selectedFile, setSelectedFile] = useState(null)
   const filePickerRef = useRef(null)
@@ -31,10 +33,10 @@ function Input() {
     if (loading) return
     setLoading(true)
     const docRef = await addDoc(collection(db, 'posts'), {
-      // id: session.user.uid,
-      // username: session.user.name,
-      // userImg: session.user.image,
-      // tag: session.user.tag,
+      id: session.user.uid,
+      username: session.user.name,
+      userImg: session.user.image,
+      tag: session.user.tag,
       text: input,
       timestamp: serverTimestamp(),
     })
@@ -72,7 +74,7 @@ function Input() {
       className={`flex space-x-3 overflow-y-scroll border-b border-gray-700 p-3`}
     >
       <img
-        src="/gerv.jpg"
+        src={session.user.image}
         alt="userImg"
         className="h-11 w-11 cursor-pointer rounded-full"
       />
