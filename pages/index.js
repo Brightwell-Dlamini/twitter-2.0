@@ -32,11 +32,11 @@ export default function Home({ trendingResults, followResults, providers }) {
         {isOpen && <Modal />}
       </main>
     </div>
-  );
+  )
 }
 //
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(
     (res) => res.json()
   )
@@ -45,7 +45,7 @@ export async function getServerSideProps() {
   )
 
   const providers = await getProviders()
-  const session = await getSession()
+  const session = await getSession(context)
   return {
     props: {
       trendingResults,
