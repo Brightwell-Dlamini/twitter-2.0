@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil'
-import { modalState, postIdState } from '../atoms/modalAtom'
+import { modalState, postIdState } from '../atoms/atom'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 import {
