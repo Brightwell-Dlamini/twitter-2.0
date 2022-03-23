@@ -32,10 +32,10 @@ function Home({ trendingResults, followResults, providers }) {
 }
 
 export async function getServerSideProps(context) {
-  const trendingResults = await fetch('https://jsonkeeper.com/b/NKEV').then(
+  const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(
     (res) => res.text()
   )
-  const followResults = await fetch('https://jsonkeeper.com/b/WWMJ').then(
+  const followResults = await fetch("https://jsonkeeper.com/b/WWMJ").then(
     (res) => res.text()
   )
   const providers = await getProviders()
