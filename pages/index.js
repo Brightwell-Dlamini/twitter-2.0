@@ -7,7 +7,7 @@ import Modal from '../components/Modal'
 import { useRecoilState } from 'recoil'
 import { modalState } from '../atoms/atom'
 import Widgets from '../components/Widgets'
-function Home({ trendingResults, followResults, providers }) {
+export default function Home({ trendingResults, followResults, providers }) {
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useRecoilState(modalState)
   if (!session) return <Login providers={providers} />
@@ -32,19 +32,20 @@ function Home({ trendingResults, followResults, providers }) {
         {isOpen && <Modal />}
       </main>
     </div>
-  )
+  );
 }
 //
 
-export async function getServerSideProps(context) {
-  const trendingResults = await fetch('https://jsonkeeper.com/b/NKEV').then(
+export async function getServerSideProps() {
+  const trendingResults = await fetch("https://jsonkeeper.com/b/NKEV").then(
     (res) => res.json()
   )
-  const followResults = await fetch('https://jsonkeeper.com/b/WWMJ').then(
+  const followResults = await fetch("https://jsonkeeper.com/b/WWMJ").then(
     (res) => res.json()
   )
+
   const providers = await getProviders()
-  const session = await getSession(context)
+  const session = await getSession()
   return {
     props: {
       trendingResults,
@@ -54,4 +55,3 @@ export async function getServerSideProps(context) {
     },
   }
 }
-export default Home

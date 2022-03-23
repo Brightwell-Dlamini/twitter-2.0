@@ -1,4 +1,2 @@
-module.exports = {
-  singleQuote: true,
-  semi: false,
-}
+export const singleQuote = false
+export const semi = true
