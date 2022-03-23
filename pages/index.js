@@ -6,6 +6,7 @@ import { getProviders, getSession, useSession } from 'next-auth/react'
 import Modal from '../components/Modal'
 import { useRecoilState } from 'recoil'
 import { modalState } from '../atoms/atom'
+import Widgets from '../components/Widgets'
 function Home({ trendingResults, followResults, providers }) {
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useRecoilState(modalState)
@@ -24,7 +25,10 @@ function Home({ trendingResults, followResults, providers }) {
 
         <Feed />
 
-        {/* Widgets */}
+        <Widgets
+          trendingResults={trendingResults}
+          followResults={followResults}
+        />
         {isOpen && <Modal />}
       </main>
     </div>
@@ -33,10 +37,10 @@ function Home({ trendingResults, followResults, providers }) {
 
 export async function getServerSideProps(context) {
   const trendingResults = await fetch('https://jsonkeeper.com/b/NKEV').then(
-    (res) => res.text()
+    (res) => res.json()
   )
   const followResults = await fetch('https://jsonkeeper.com/b/WWMJ').then(
-    (res) => res.text()
+    (res) => res.json()
   )
   const providers = await getProviders()
   const session = await getSession(context)
